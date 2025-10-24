@@ -174,7 +174,6 @@ const App: React.FC = () => {
                     value={sliderValue} 
                     onChange={handleSliderChange}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg transition-colors duration-200"
-                    style={{'--tw-ring-color': '#4f46e5'}}
                 />
                 <div className="flex justify-between text-sm text-gray-500 mt-1">
                     <span>10 Results</span>
@@ -218,10 +217,10 @@ const App: React.FC = () => {
                         rel="noopener noreferrer"
                         className="block bg-white p-4 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-indigo-500 transition-all duration-300 group cursor-pointer"
                     >
-						<span className="flex-shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
+						<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
 							{bid.b_bid_number[0]}
 						</span>
-						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 break-words pr-2 transition-colors duration-300">
+						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word pr-2 transition-colors duration-300">
 							{bid.b_category_name[0]}
 						</h2>						
                         <p className="text-sm text-gray-600 mb-1">
