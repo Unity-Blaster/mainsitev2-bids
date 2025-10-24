@@ -289,12 +289,12 @@ const App: React.FC = () => {
                         <p className="text-sm text-gray-600 mb-1 gap-2 w-full flex">
                             <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}
                             <span className="font-medium text-gray-700">Closing Date:</span> {new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}
-							<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
-								{bid.b_bid_number[0]}
-							</span>
                         </p>
                         <p className="text-sm text-gray-600 mb-1 gap-2 w-full flex">
 							<span className="font-medium text-gray-700">Created By:</span> {bid['b.b_created_by'][0]}
+							<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
+								{bid.b_bid_number[0]}
+							</span>
 						</p>
                     </a>
                 ))}
