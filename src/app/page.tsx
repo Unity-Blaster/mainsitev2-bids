@@ -44,6 +44,12 @@ interface BidResponse {
   current_page: number;
 }
 
+interface ApiErrorData {
+    message?: string;
+    error?: string;
+    [key: string]: unknown;
+}
+
 // The assumed hard limit the external API returns per page
 const RESULTS_PER_PAGE = 10;
 
@@ -115,10 +121,8 @@ const App: React.FC = () => {
                 if (!response.ok) {
                     let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
                     try {
-                        const errorData = await response.json();
-                        if (errorData.message || errorData.error) {
-                            errorMessage = errorData.message || errorData.error;
-                        }
+                        const errorData = await response.json() as ApiErrorData;
+                        errorMessage = errorData.message ?? errorData.error ?? errorMessage;
                     } catch (e) {
                         // Ignore if response body isn't JSON
                     }
@@ -155,7 +159,7 @@ const App: React.FC = () => {
             setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
             console.error(err);
         });
-    });
+    }, []);
 
     return (
         // Max-width changed to 50vw as requested
@@ -230,10 +234,10 @@ const App: React.FC = () => {
                             <span className="font-medium text-gray-700">Ministry:</span> {bid.ba_official_details_minName[0]}
                         </p>
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0] as string).toLocaleDateString()}
+                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}
                         </p>
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(bid.final_end_date_sort[0] as string).toLocaleDateString()}
+                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}
                         </p>
                     </a>
                 ))}
