@@ -27,6 +27,7 @@ interface BidDocument {
   ba_official_details_minName: string[];
   ba_official_details_deptName: string[];
   'b.b_created_by': string[];
+  b_total_quantity: string[];
 }
 
 interface InnerResponse {
@@ -279,23 +280,20 @@ const App: React.FC = () => {
                         rel="noopener noreferrer"
                         className="block bg-gray-50 p-4 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-indigo-500 transition-all duration-300 group cursor-pointer"
                     >
-						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word pr-2 transition-colors duration-300">
-							{bid.b_category_name[0]}
-						</h2>
-                        <p className="text-sm text-gray-600 mb-1 gap-2 w-full flex">
-                            <span className="font-medium text-gray-700">Ministry:</span> {bid.ba_official_details_minName[0]}
-							<span className="font-medium text-gray-700">Department:</span> {bid.ba_official_details_deptName[0]}
-                        </p>
-                        <p className="text-sm text-gray-600 mb-1 gap-2 w-full flex">
-                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}
-                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}
-                        </p>
-                        <p className="text-sm text-gray-600 mb-1 gap-2 w-full flex">
-							<span className="font-medium text-gray-700">Created By:</span> {bid['b.b_created_by'][0]}
-							<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
-								{bid.b_bid_number[0]}
+						<div className="text-sm text-gray-600 mb-1 grid grid-cols-1 md:grid-cols-2 gap-2">
+							<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word pr-2 transition-colors duration-300 col-span-2">
+								{bid.b_category_name[0]}
+							</h2>
+                            <p className="font-medium text-gray-700">Ministry: <span className="text-gray-600 font-light">{bid.ba_official_details_minName[0]}</span></p>
+							<p className="font-medium text-gray-700">Department: <span className="text-gray-600 font-light">{bid.ba_official_details_deptName[0]}</span></p>
+                            <p className="font-medium text-gray-700">Starting Date: <span className="text-gray-600 font-light">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}</span></p>
+                            <p className="font-medium text-gray-700">Closing Date: <span className="text-gray-600 font-light">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}</span></p>
+							<p className="font-medium text-gray-700">Created By: <span className="text-gray-600 font-light">{bid['b.b_created_by'][0]}</span></p>
+							<p className="font-medium text-gray-700">Total Quantity: <span className="text-gray-600 font-light">{bid.b_total_quantity[0]}</span></p>
+							<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full col-span-2 flex items-center justify-center">
+								Bid Number: {bid.b_bid_number[0]}
 							</span>
-						</p>
+						</div>
                     </a>
                 ))}
             </div>
