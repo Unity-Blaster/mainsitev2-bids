@@ -25,6 +25,7 @@ interface BidDocument {
   final_start_date_sort: string[];
   final_end_date_sort: string[];
   ba_official_details_minName: string[];
+  ba_official_details_deptName: string[];
 }
 
 interface InnerResponse {
@@ -282,9 +283,10 @@ const App: React.FC = () => {
 						</span>
 						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word pr-2 transition-colors duration-300">
 							{bid.b_category_name[0]}
-						</h2>						
+						</h2>
                         <p className="text-sm text-gray-600 mb-1">
                             <span className="font-medium text-gray-700">Ministry:</span> {bid.ba_official_details_minName[0]}
+							<span className="font-medium text-gray-700">Department:</span> {bid.ba_official_details_deptName[0]}
                         </p>
                         <p className="text-sm text-gray-600">
                             <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}
