@@ -216,12 +216,12 @@ const App: React.FC = () => {
 
     return (
         // Max-width changed to 50vw as requested
-        <div className="p-6 w-[80vw] mx-auto font-sans bg-gray-50 min-h-screen">
+        <div className="p-6 w-[80vw] mx-auto font-sans bg-white min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
             <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">Bid Search Results</h1>
             
             {/* Slider for Results Count Selection */}
-            <div className="mb-4 bg-white p-4 rounded-xl shadow-lg border border-gray-200">
+            <div className="mb-4 bg-gray-50 p-4 rounded-xl shadow-lg border border-gray-200">
                 <label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-3">
                     Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
                 </label>
@@ -275,7 +275,7 @@ const App: React.FC = () => {
                         href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block bg-white p-4 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-indigo-500 transition-all duration-300 group cursor-pointer"
+                        className="block bg-gray-50 p-4 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-indigo-500 transition-all duration-300 group cursor-pointer"
                     >
 						<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
 							{bid.b_bid_number[0]}
