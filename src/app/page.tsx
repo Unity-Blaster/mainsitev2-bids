@@ -221,18 +221,34 @@ const App: React.FC = () => {
         // Max-width changed to 50vw as requested
         <div className="p-6 min-[1400]:w-[80vw] max-w-full mx-auto font-sans bg-white min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
-            <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">GeM Ongoing Bids Search Results</h1>
+            <h1 className="text-3xl font-bold text-center text-indigo-700">GeM Ongoing Bids Search Results</h1>
             
             {/* Slider for Results Count Selection */}
-            <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200">
+            <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
 				<div className="flex justify-between">
 					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-3">
 						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
 					</label>
+					<button
+						onClick={fetchBids}
+						disabled={loading}
+						className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+					>
+						{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+						{loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids`}
+					</button>
 					<div className="text-sm text-gray-500">
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
 				</div>
+                <div className="flex justify-between text-sm text-gray-500 mt-1">
+                    <span>10 Results</span>
+					<span>100 Results</span>
+					<span>200 Results</span>
+					<span>300 Results</span>
+					<span>400 Results</span>
+                    <span>500 Results</span>
+                </div>
                 <input
                     id="result-slider"
 					name="result-slider"
@@ -244,24 +260,7 @@ const App: React.FC = () => {
                     onChange={handleSliderChange}
                     className="w-[94%] h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg transition-colors duration-200 mx-[3%]"
                 />
-                <div className="flex justify-between text-sm text-gray-500 mt-1">
-                    <span>10 Results</span>
-					<span>100 Results</span>
-					<span>200 Results</span>
-					<span>300 Results</span>
-					<span>400 Results</span>
-                    <span>500 Results</span>
-                </div>
             </div>
-
-            <button
-                onClick={fetchBids}
-                disabled={loading}
-                className="w-full bg-indigo-600 text-white py-2 my-6 rounded-4xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-            >
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids`}
-            </button>
 
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-4lg relative mb-4">
