@@ -117,7 +117,7 @@ const App: React.FC = () => {
                     try {
                         const errorData = await response.json();
                         if (errorData.message || errorData.error) {
-                             errorMessage = errorData.message || errorData.error;
+                            errorMessage = errorData.message || errorData.error;
                         }
                     } catch (e) {
                         // Ignore if response body isn't JSON
@@ -156,9 +156,6 @@ const App: React.FC = () => {
             console.error(err);
         });
     });
-
-	const start_date = bid.final_start_date_sort[0];
-	const end_date = bid.final_end_date_sort[0];
 
     return (
         // Max-width changed to 50vw as requested
@@ -233,10 +230,10 @@ const App: React.FC = () => {
                             <span className="font-medium text-gray-700">Ministry:</span> {bid.ba_official_details_minName[0]}
                         </p>
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(start_date as string).toLocaleDateString()}
+                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0] as string).toLocaleDateString()}
                         </p>
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(end_date as string).toLocaleDateString()}
+                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(bid.final_end_date_sort[0] as string).toLocaleDateString()}
                         </p>
                     </a>
                 ))}
