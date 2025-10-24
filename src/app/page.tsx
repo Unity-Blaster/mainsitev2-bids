@@ -221,25 +221,35 @@ const App: React.FC = () => {
         // Max-width changed to 50vw as requested
         <div className="p-6 min-[1400]:w-[80vw] max-w-full mx-auto font-sans bg-white min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
-            <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">Bid Search Results</h1>
+            <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">GeM Ongoing Bids Search Results</h1>
             
             {/* Slider for Results Count Selection */}
-            <div className="mb-4 bg-gray-50 p-4 rounded-xl shadow-lg border border-gray-200">
-                <label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-3">
-                    Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
-                </label>
+            <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200">
+				<div className="flex justify-between">
+					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-3">
+						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
+					</label>
+					<div className="text-sm text-gray-500">
+						Displaying {bids.length} bids (Requested: {requestedResults})
+					</div>	
+				</div>
                 <input
                     id="result-slider"
+					name="result-slider"
                     type="range"
                     min="10"
                     max="500"
                     step="10"
                     value={sliderValue} 
                     onChange={handleSliderChange}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg transition-colors duration-200"
+                    className="w-[94%] h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg transition-colors duration-200 mx-[3%]"
                 />
                 <div className="flex justify-between text-sm text-gray-500 mt-1">
                     <span>10 Results</span>
+					<span>100 Results</span>
+					<span>200 Results</span>
+					<span>300 Results</span>
+					<span>400 Results</span>
                     <span>500 Results</span>
                 </div>
             </div>
@@ -247,24 +257,21 @@ const App: React.FC = () => {
             <button
                 onClick={fetchBids}
                 disabled={loading}
-                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-150 mb-4 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+                className="w-full bg-indigo-600 text-white py-2 my-6 rounded-4xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
             >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids`}
             </button>
-            <div className="pb-4 text-center text-sm text-gray-500">
-                Displaying {bids.length} bids (Requested: {requestedResults}).
-            </div>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-4">
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-4lg relative mb-4">
                     <p className="font-bold">Error</p>
                     <p className="text-sm">{error}</p>
                 </div>
             )}
 
             {!loading && bids.length === 0 && !error && (
-                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-lg bg-white">
+                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-4lg bg-white">
                     No bids found for the current search parameters.
                 </div>
             )}
@@ -278,21 +285,21 @@ const App: React.FC = () => {
                         href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block bg-gray-50 p-4 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-indigo-500 transition-all duration-300 group cursor-pointer"
+                        className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
                     >
-						<div className="text-sm text-gray-600 mb-1 grid grid-cols-1 md:grid-cols-2 gap-2">
-							<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word pr-2 transition-colors duration-300 col-span-2">
-								{bid.b_category_name[0]}
-							</h2>
-                            <p className="font-medium text-gray-700">Ministry: <span className="text-gray-600 font-light">{bid.ba_official_details_minName[0]}</span></p>
-							<p className="font-medium text-gray-700">Department: <span className="text-gray-600 font-light">{bid.ba_official_details_deptName[0]}</span></p>
-                            <p className="font-medium text-gray-700">Starting Date: <span className="text-gray-600 font-light">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}</span></p>
-                            <p className="font-medium text-gray-700">Closing Date: <span className="text-gray-600 font-light">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}</span></p>
-							<p className="font-medium text-gray-700">Created By: <span className="text-gray-600 font-light">{bid['b.b_created_by'][0]}</span></p>
-							<p className="font-medium text-gray-700">Total Quantity: <span className="text-gray-600 font-light">{bid.b_total_quantity[0]}</span></p>
-							<span className="shrink-0 text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full col-span-2 flex items-center justify-center">
+						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-3">
+							{bid.b_category_name[0]}
+						</h2>
+						<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-tl-2xl rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-tl-md rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
+                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}</span></p>
+                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
+							<p className="font-medium text-indigo-600 bg-indigo-100 px-3 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-2 flex items-center justify-center">
 								Bid Number: {bid.b_bid_number[0]}
-							</span>
+							</p>
 						</div>
                     </a>
                 ))}
