@@ -149,10 +149,10 @@ const App: React.FC = () => {
         }
     };
 
-    useEffect(() => {
+	useEffect(() => {
         // Initial client-side fetch on load (10 results)
-        fetchBids();
-    }, []);
+        await fetchBids();
+    });
 
     return (
         // Max-width changed to 50vw as requested
@@ -184,12 +184,12 @@ const App: React.FC = () => {
             <button
                 onClick={fetchBids}
                 disabled={loading}
-                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-150 mb-6 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+                className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-150 mb-4 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
             >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids`}
             </button>
-            <div className="pb-3 text-center text-sm text-gray-500">
+            <div className="pb-4 text-center text-sm text-gray-500">
                 Displaying {bids.length} bids (Requested: {requestedResults}).
             </div>
 
