@@ -151,13 +151,19 @@ const App: React.FC = () => {
 
 	useEffect(() => {
         // Initial client-side fetch on load (10 results)
-        await fetchBids();
+        fetchBids().catch((err) => {
+            setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
+            console.error(err);
+        });
     });
+
+	const start_date = bid.final_start_date_sort[0];
+	const end_date = bid.final_end_date_sort[0];
 
     return (
         // Max-width changed to 50vw as requested
         <div className="p-6 w-[80vw] mx-auto font-sans bg-gray-50 min-h-screen">
-            <script src="https://cdn.tailwindcss.com"></script>
+            <script async src="https://cdn.tailwindcss.com"></script>
             <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">Bid Search Results</h1>
             
             {/* Slider for Results Count Selection */}
@@ -227,10 +233,10 @@ const App: React.FC = () => {
                             <span className="font-medium text-gray-700">Ministry:</span> {bid.ba_official_details_minName[0]}
                         </p>
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(bid.final_start_date_sort[0]).toLocaleDateString()}
+                            <span className="font-medium text-gray-700">Starting Date:</span> {new Date(start_date as string).toLocaleDateString()}
                         </p>
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(bid.final_end_date_sort[0]).toLocaleDateString()}
+                            <span className="font-medium text-gray-700">Closing Date:</span> {new Date(end_date as string).toLocaleDateString()}
                         </p>
                     </a>
                 ))}
