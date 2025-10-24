@@ -219,7 +219,7 @@ const App: React.FC = () => {
 
     return (
         // Max-width changed to 50vw as requested
-        <div className="p-6 lg:w-[80vw] md:max-w-full mx-auto font-sans bg-white min-h-screen">
+        <div className="p-6 min-[1400]:w-[80vw] max-w-full mx-auto font-sans bg-white min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
             <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">Bid Search Results</h1>
             
