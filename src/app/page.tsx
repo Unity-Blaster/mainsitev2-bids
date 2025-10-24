@@ -75,6 +75,18 @@ const DEFAULT_SEARCH_PARAMS: SearchParameters = {
     rows: RESULTS_PER_PAGE, // Fixed to 10 for multi-page requests
 };
 
+const BOKARO_SEARCH_PARAMS: SearchParameters = {
+    searchType: "ministry-search",
+    ministry: "Ministry of Steel",
+    buyerState: "",
+    organization: "Bokaro Steel Plant",
+    department: "Steel Authority of India Limited",
+    bidEndFromMin: "",
+    bidEndToMin: "",
+    page: 1, // Will be incremented in the loop
+    rows: RESULTS_PER_PAGE, // Fixed to 10 for multi-page requests
+};
+
 // Main application component
 const App: React.FC = () => {
     const [bids, setBids] = useState<BidDocument[]>([]);
@@ -94,9 +106,8 @@ const App: React.FC = () => {
         }
     };
 
-
     // Function to fetch data from the Next.js API Route
-    const fetchBids = async () => {
+    const fetchBids = async (RSP: boolean) => {
         setLoading(true);
         setError(null);
         setBids([]); // Clear previous results
@@ -112,91 +123,180 @@ const App: React.FC = () => {
         try {
             for (let page = 1; page <= numPagesToFetch; page++) {
                 
-                // Construct search parameters for the current page
-                const searchParamsForPage: SearchParameters = {
-                    ...DEFAULT_SEARCH_PARAMS,
-                    page: page, // Use the current page number in the loop
-                    rows: RESULTS_PER_PAGE, // Always request the max per page (10)
-                };
+				if (RSP === true) {
+					// Construct search parameters for the current page
+					const searchParamsForPage: SearchParameters = {
+						...DEFAULT_SEARCH_PARAMS,
+						page: page, // Use the current page number in the loop
+						rows: RESULTS_PER_PAGE, // Always request the max per page (10)
+					};	
+					
+					const apiUrl = '/api/search-bids';
+					let success = false;
+					// FIX: Explicitly type lastError as Error | null to satisfy ESLint and TypeScript
+					let lastError: Error | null = null;
+	
+					for (let attempt = 0; attempt < maxRetries; attempt++) {
+						try {
+							const response = await fetch(apiUrl, {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(searchParamsForPage),
+							});
+			
+							if (!response.ok) {
+								let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
+								try {
+									const errorData = await response.json() as ApiErrorData;
+									errorMessage = errorData.message ?? errorData.error ?? errorMessage;
+								} catch (e) {
+									// Ignore if response body isn't JSON
+								}
+								// Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
+								if (attempt === maxRetries - 1) {
+									throw new Error(errorMessage);
+								} else {
+									lastError = new Error(errorMessage);
+								}
+							} else {
+								const data = (await response.json()) as BidResponse;
+	
+								if (data.status === 1 && data.response?.response?.docs) {
+									allBids.push(...data.response.response.docs);
+									
+									// Check if this is the last page and break if necessary
+									if (data.response.response.docs.length < RESULTS_PER_PAGE) {
+										success = true; // Request successful
+										break; // Break the retry loop and the page loop
+									}
+									success = true;
+									break; // Break the retry loop, continue to next page
+								} else {
+									// Treat unexpected data structure as fatal error
+									throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
+								}
+							}
+						} catch (err) {
+							// Ensure we assign a proper Error object or null here
+							if (err instanceof Error) {
+								lastError = err;
+							} else if (typeof err === 'string') {
+								lastError = new Error(err);
+							} else {
+								lastError = new Error("An unknown fetch error occurred.");
+							}
+	
+							if (attempt === maxRetries - 1) {
+								// On the last attempt, re-throw the error to exit the outer try/catch
+								throw err;
+							}
+						}
+	
+						if (!success) {
+							// Exponential backoff: 1s, 2s, 4s...
+							const waitTime = baseDelayMs * Math.pow(2, attempt);
+							console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
+							await delay(waitTime);
+						}
+					} // End of retry loop
+					
+					if (!success && lastError) {
+						throw lastError; // Propagate error if all retries failed for a page
+					} else if (!success) {
+						// This handles the case where the bid list might be shorter than requested
+						break;
+					}
+				
+				} else {
+					// Construct search parameters for the current page
+					const searchParamsForPage: SearchParameters = {
+						...BOKARO_SEARCH_PARAMS,
+						page: page, // Use the current page number in the loop
+						rows: RESULTS_PER_PAGE, // Always request the max per page (10)
+					};		
+					
+					const apiUrl = '/api/search-bids';
+					let success = false;
+					// FIX: Explicitly type lastError as Error | null to satisfy ESLint and TypeScript
+					let lastError: Error | null = null;
+	
+					for (let attempt = 0; attempt < maxRetries; attempt++) {
+						try {
+							const response = await fetch(apiUrl, {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(searchParamsForPage),
+							});
+			
+							if (!response.ok) {
+								let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
+								try {
+									const errorData = await response.json() as ApiErrorData;
+									errorMessage = errorData.message ?? errorData.error ?? errorMessage;
+								} catch (e) {
+									// Ignore if response body isn't JSON
+								}
+								// Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
+								if (attempt === maxRetries - 1) {
+									throw new Error(errorMessage);
+								} else {
+									lastError = new Error(errorMessage);
+								}
+							} else {
+								const data = (await response.json()) as BidResponse;
+	
+								if (data.status === 1 && data.response?.response?.docs) {
+									allBids.push(...data.response.response.docs);
+									
+									// Check if this is the last page and break if necessary
+									if (data.response.response.docs.length < RESULTS_PER_PAGE) {
+										success = true; // Request successful
+										break; // Break the retry loop and the page loop
+									}
+									success = true;
+									break; // Break the retry loop, continue to next page
+								} else {
+									// Treat unexpected data structure as fatal error
+									throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
+								}
+							}
+						} catch (err) {
+							// Ensure we assign a proper Error object or null here
+							if (err instanceof Error) {
+								lastError = err;
+							} else if (typeof err === 'string') {
+								lastError = new Error(err);
+							} else {
+								lastError = new Error("An unknown fetch error occurred.");
+							}
+	
+							if (attempt === maxRetries - 1) {
+								// On the last attempt, re-throw the error to exit the outer try/catch
+								throw err;
+							}
+						}
+	
+						if (!success) {
+							// Exponential backoff: 1s, 2s, 4s...
+							const waitTime = baseDelayMs * Math.pow(2, attempt);
+							console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
+							await delay(waitTime);
+						}
+					} // End of retry loop
+					
+					if (!success && lastError) {
+						throw lastError; // Propagate error if all retries failed for a page
+					} else if (!success) {
+						// This handles the case where the bid list might be shorter than requested
+						break;
+					}
+			
+				}
                 
-                const apiUrl = '/api/search-bids';
-                let success = false;
-                // FIX: Explicitly type lastError as Error | null to satisfy ESLint and TypeScript
-                let lastError: Error | null = null;
-
-                for (let attempt = 0; attempt < maxRetries; attempt++) {
-                    try {
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(searchParamsForPage),
-                        });
-        
-                        if (!response.ok) {
-                            let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
-                            try {
-                                const errorData = await response.json() as ApiErrorData;
-                                errorMessage = errorData.message ?? errorData.error ?? errorMessage;
-                            } catch (e) {
-                                // Ignore if response body isn't JSON
-                            }
-                            // Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
-                            if (attempt === maxRetries - 1) {
-                                throw new Error(errorMessage);
-                            } else {
-                                lastError = new Error(errorMessage);
-                            }
-                        } else {
-                            const data = (await response.json()) as BidResponse;
-
-                            if (data.status === 1 && data.response?.response?.docs) {
-                                allBids.push(...data.response.response.docs);
-                                
-                                // Check if this is the last page and break if necessary
-                                if (data.response.response.docs.length < RESULTS_PER_PAGE) {
-                                    success = true; // Request successful
-                                    break; // Break the retry loop and the page loop
-                                }
-                                success = true;
-                                break; // Break the retry loop, continue to next page
-                            } else {
-                                // Treat unexpected data structure as fatal error
-                                throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
-                            }
-                        }
-                    } catch (err) {
-                        // Ensure we assign a proper Error object or null here
-                        if (err instanceof Error) {
-                            lastError = err;
-                        } else if (typeof err === 'string') {
-                            lastError = new Error(err);
-                        } else {
-                            lastError = new Error("An unknown fetch error occurred.");
-                        }
-
-                        if (attempt === maxRetries - 1) {
-                            // On the last attempt, re-throw the error to exit the outer try/catch
-                            throw err;
-                        }
-                    }
-
-                    if (!success) {
-                        // Exponential backoff: 1s, 2s, 4s...
-                        const waitTime = baseDelayMs * Math.pow(2, attempt);
-                        console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
-                        await delay(waitTime);
-                    }
-                } // End of retry loop
-                
-                if (!success && lastError) {
-                    throw lastError; // Propagate error if all retries failed for a page
-                } else if (!success) {
-                    // This handles the case where the bid list might be shorter than requested
-                    break;
-                }
-
             } // End of page loop
 
             setBids(allBids);
@@ -209,9 +309,23 @@ const App: React.FC = () => {
         }
     };
 
+	const fetchBidsBSP = async () => {
+		fetchBids(false).catch((err) => {
+			setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
+			console.error(err);
+		});
+	};
+
+	const fetchBidsRSP = async () => {
+		fetchBids(true).catch((err) => {
+			setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
+			console.error(err);
+		});
+	};
+
 	useEffect(() => {
         // Initial client-side fetch on load (10 results)
-        fetchBids().catch((err) => {
+        fetchBids(true).catch((err) => {
             setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
             console.error(err);
         });
@@ -229,14 +343,24 @@ const App: React.FC = () => {
 					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-3">
 						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
 					</label>
-					<button
-						onClick={fetchBids}
-						disabled={loading}
-						className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-					>
-						{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-						{loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids`}
-					</button>
+					<span className="flex gap-2">
+						<button
+							onClick={fetchBidsRSP}
+							disabled={loading}
+							className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+						>
+							{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+							{loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids from RSP`}
+						</button>
+						<button
+							onClick={fetchBidsBSP}
+							disabled={loading}
+							className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+						>
+							{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+							{loading ? 'Fetching Data...' : `Fetch ${requestedResults} Bids from BSP`}
+						</button>
+					</span>
 					<div className="text-sm text-gray-500">
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
