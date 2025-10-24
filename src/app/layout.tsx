@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "GeM Bids | Unity Blaster",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>{children}</body>
+	  <Analytics />
     </html>
   );
 }
