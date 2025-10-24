@@ -50,6 +50,9 @@ interface ApiErrorData {
     [key: string]: unknown;
 }
 
+// Utility to introduce delay (required for backoff)
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 // The assumed hard limit the external API returns per page
 const RESULTS_PER_PAGE = 10;
 
@@ -88,12 +91,17 @@ const App: React.FC = () => {
         }
     };
 
+
     // Function to fetch data from the Next.js API Route
     const fetchBids = async () => {
         setLoading(true);
         setError(null);
         setBids([]); // Clear previous results
         
+        // Configuration for retries
+        const maxRetries = 3; 
+        const baseDelayMs = 1000; // 1 second base delay
+
         // Calculate how many pages we need to fetch
         const numPagesToFetch = requestedResults / RESULTS_PER_PAGE; 
         const allBids: BidDocument[] = [];
@@ -109,39 +117,84 @@ const App: React.FC = () => {
                 };
                 
                 const apiUrl = '/api/search-bids';
+                let success = false;
+                // FIX: Explicitly type lastError as Error | null to satisfy ESLint and TypeScript
+                let lastError: Error | null = null;
 
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(searchParamsForPage),
-                });
-
-                if (!response.ok) {
-                    let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
+                for (let attempt = 0; attempt < maxRetries; attempt++) {
                     try {
-                        const errorData = await response.json() as ApiErrorData;
-                        errorMessage = errorData.message ?? errorData.error ?? errorMessage;
-                    } catch (e) {
-                        // Ignore if response body isn't JSON
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(searchParamsForPage),
+                        });
+        
+                        if (!response.ok) {
+                            let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
+                            try {
+                                const errorData = await response.json() as ApiErrorData;
+                                errorMessage = errorData.message ?? errorData.error ?? errorMessage;
+                            } catch (e) {
+                                // Ignore if response body isn't JSON
+                            }
+                            // Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
+                            if (attempt === maxRetries - 1) {
+                                throw new Error(errorMessage);
+                            } else {
+                                lastError = new Error(errorMessage);
+                            }
+                        } else {
+                            const data = (await response.json()) as BidResponse;
+
+                            if (data.status === 1 && data.response?.response?.docs) {
+                                allBids.push(...data.response.response.docs);
+                                
+                                // Check if this is the last page and break if necessary
+                                if (data.response.response.docs.length < RESULTS_PER_PAGE) {
+                                    success = true; // Request successful
+                                    break; // Break the retry loop and the page loop
+                                }
+                                success = true;
+                                break; // Break the retry loop, continue to next page
+                            } else {
+                                // Treat unexpected data structure as fatal error
+                                throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
+                            }
+                        }
+                    } catch (err) {
+                        // Ensure we assign a proper Error object or null here
+                        if (err instanceof Error) {
+                            lastError = err;
+                        } else if (typeof err === 'string') {
+                            lastError = new Error(err);
+                        } else {
+                            lastError = new Error("An unknown fetch error occurred.");
+                        }
+
+                        if (attempt === maxRetries - 1) {
+                            // On the last attempt, re-throw the error to exit the outer try/catch
+                            throw err;
+                        }
                     }
-                    throw new Error(errorMessage);
+
+                    if (!success) {
+                        // Exponential backoff: 1s, 2s, 4s...
+                        const waitTime = baseDelayMs * Math.pow(2, attempt);
+                        console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
+                        await delay(waitTime);
+                    }
+                } // End of retry loop
+                
+                if (!success && lastError) {
+                    throw lastError; // Propagate error if all retries failed for a page
+                } else if (!success) {
+                    // This handles the case where the bid list might be shorter than requested
+                    break;
                 }
 
-                const data = (await response.json()) as BidResponse;
-
-                if (data.status === 1 && data.response?.response?.docs) {
-                    allBids.push(...data.response.response.docs);
-                    
-                    // Break early if we didn't get a full page of results, meaning we hit the end of the search results
-                    if (data.response.response.docs.length < RESULTS_PER_PAGE) {
-                        break;
-                    }
-                } else {
-                     throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
-                }
-            }
+            } // End of page loop
 
             setBids(allBids);
 
