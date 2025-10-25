@@ -419,17 +419,17 @@ const App: React.FC = () => {
                         rel="noopener noreferrer"
                         className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
                     >
-						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-3">
+						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
 							{bid.b_category_name[0]}
 						</h2>
 						<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
-                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}</span></p>
-                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
-							<p className="font-medium text-indigo-600 bg-indigo-100 px-3 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
+                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
+                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}</span></p>
+                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
+							<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
 								Bid Number: {bid.b_bid_number[0]}
 							</p>
 						</div>
