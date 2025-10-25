@@ -334,38 +334,43 @@ const App: React.FC = () => {
             
             {/* Slider for Results Count Selection */}
             <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
-				<div className="flex justify-between">
-					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-3">
+				<div className="flex justify-between flex-col md:flex-row items-center md:items-start">
+					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
 						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
 					</label>
 					<span className="flex gap-2">
+
 						{loading ?
 						
-						<button
-							disabled={loading}
-							className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-						>
-							{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-							{`Loading ${requestedResults} Bids`}
-						</button>
+							<button
+								disabled={loading}
+								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+							>
+								{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+								{`Loading ${requestedResults} Bids`}
+							</button>
+
 						:
-						<div className="flex gap-2">
-							<button
-								onClick={fetchBidsRSP}
-								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-							>
-								{`Fetch ${requestedResults} Bids from RSP`}
-							</button>
-							<button
-								onClick={fetchBidsBSP}
-								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-							>
-								{`Fetch ${requestedResults} Bids from BSP`}
-							</button>
-						</div>
-}
+
+							<div className="flex gap-2">
+								<button
+									onClick={fetchBidsRSP}
+									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+								>
+									{`Fetch ${requestedResults} Bids from RSP`}
+								</button>
+								<button
+									onClick={fetchBidsBSP}
+									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+								>
+									{`Fetch ${requestedResults} Bids from BSP`}
+								</button>
+							</div>
+
+						}
+
 					</span>
-					<div className="text-sm text-gray-500">
+					<div className="text-sm text-gray-500 my-2 md:my-0">
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
 				</div>
@@ -418,13 +423,13 @@ const App: React.FC = () => {
 							{bid.b_category_name[0]}
 						</h2>
 						<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-tl-2xl rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-tl-md rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
+                            <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
+							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
                             <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString()}</span></p>
                             <p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString()}</span></p>
 							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
 							<p className="font-medium text-indigo-800 bg-indigo-50 p-2 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
-							<p className="font-medium text-indigo-600 bg-indigo-100 px-3 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-2 flex items-center justify-center">
+							<p className="font-medium text-indigo-600 bg-indigo-100 px-3 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
 								Bid Number: {bid.b_bid_number[0]}
 							</p>
 						</div>
