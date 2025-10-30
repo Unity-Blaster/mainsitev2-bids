@@ -95,20 +95,20 @@ const BidSkeleton: React.FC = () => {
 	const elements = [];
 	for (let i = 0; i < 10; i++) {
 	  	elements.push(
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+			<div className="bg-gray-50 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-4xl animate-pulse">
 				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				<div className="h-14 bg-gray-300 rounded-2xl w-full mb-2"></div>
 				
 				{/* Details Grid Placeholder */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
 					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+					<div className="h-[30px] text-indigo-600 bg-indigo-100 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300"></div>
 				</div>
 			</div>
 		);
@@ -446,7 +446,7 @@ export default function App() {
 				{loading ? (
 							
 					<BidSkeleton />
-
+					
 				) : (
 
 					bids.map((bid) => (
@@ -455,7 +455,7 @@ export default function App() {
 							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-2xl"
+							className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
 						>
 							<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
 								{bid.b_category_name[0]}
@@ -474,7 +474,7 @@ export default function App() {
 							</div>
 						</a>
 					))
-
+				
 				)}
 
             </div>
