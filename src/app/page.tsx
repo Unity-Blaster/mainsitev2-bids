@@ -87,12 +87,37 @@ const BOKARO_SEARCH_PARAMS: SearchParameters = {
     rows: RESULTS_PER_PAGE, // Fixed to 10 for multi-page requests
 };
 
+
+/**
+ * Skeleton component to show loading state for a single bid card.
+ * Uses pulsing animation for a modern feel.
+ */
+const BidSkeleton: React.FC = () => (
+    <div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+        {/* Title/Category Placeholder */}
+        <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+        
+        {/* Details Grid Placeholder */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+            <div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+            <div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+            <div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+            <div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+            <div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+            {/* Bid Number Placeholder */}
+            <div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+        </div>
+    </div>
+);
+
+
 // Main application component
-const App: React.FC = () => {
+export default function App() {
     const [bids, setBids] = useState<BidDocument[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    // sliderValue represents the number of rows to fetch (10, 20, ..., 100)
+    // sliderValue represents the number of rows to fetch (10, 20, ..., 500)
     const [sliderValue, setSliderValue] = useState(DEFAULT_ROWS); 
     
     // The current number of results requested (10, 20, 30, etc.)
@@ -123,174 +148,91 @@ const App: React.FC = () => {
         try {
             for (let page = 1; page <= numPagesToFetch; page++) {
                 
-				const apiUrl = '/api/search-bids';
-				let success = false;
-				// FIX: Explicitly type lastError as Error | null to satisfy ESLint and TypeScript
-				let lastError: Error | null = null;
-	
-				if (RSP === true) {
-					// Construct search parameters for the current page
-					const searchParamsForPage: SearchParameters = {
-						...DEFAULT_SEARCH_PARAMS,
-						page: page, // Use the current page number in the loop
-						rows: RESULTS_PER_PAGE, // Always request the max per page (10)
-					};	
-					
-					for (let attempt = 0; attempt < maxRetries; attempt++) {
-						try {
-							const response = await fetch(apiUrl, {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify(searchParamsForPage),
-							});
-			
-							if (!response.ok) {
-								let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
-								try {
-									const errorData = await response.json() as ApiErrorData;
-									errorMessage = errorData.message ?? errorData.error ?? errorMessage;
-								} catch (e) {
-									// Ignore if response body isn't JSON
-								}
-								// Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
-								if (attempt === maxRetries - 1) {
-									throw new Error(errorMessage);
-								} else {
-									lastError = new Error(errorMessage);
-								}
-							} else {
-								const data = (await response.json()) as BidResponse;
-	
-								if (data.status === 1 && data.response?.response?.docs) {
-									allBids.push(...data.response.response.docs);
-									
-									// Check if this is the last page and break if necessary
-									if (data.response.response.docs.length < RESULTS_PER_PAGE) {
-										success = true; // Request successful
-										break; // Break the retry loop and the page loop
-									}
-									success = true;
-									break; // Break the retry loop, continue to next page
-								} else {
-									// Treat unexpected data structure as fatal error
-									throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
-								}
-							}
-						} catch (err) {
-							// Ensure we assign a proper Error object or null here
-							if (err instanceof Error) {
-								lastError = err;
-							} else if (typeof err === 'string') {
-								lastError = new Error(err);
-							} else {
-								lastError = new Error("An unknown fetch error occurred.");
-							}
-	
-							if (attempt === maxRetries - 1) {
-								// On the last attempt, re-throw the error to exit the outer try/catch
-								throw err;
-							}
-						}
-	
-						if (!success) {
-							// Exponential backoff: 1s, 2s, 4s...
-							const waitTime = baseDelayMs * Math.pow(2, attempt);
-							console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
-							await delay(waitTime);
-						}
-					} // End of retry loop
-					
-					if (!success && lastError) {
-						throw lastError; // Propagate error if all retries failed for a page
-					} else if (!success) {
-						// This handles the case where the bid list might be shorter than requested
-						break;
-					}
-				
-				} else {
-					// Construct search parameters for the current page
-					const searchParamsForPage: SearchParameters = {
-						...BOKARO_SEARCH_PARAMS,
-						page: page, // Use the current page number in the loop
-						rows: RESULTS_PER_PAGE, // Always request the max per page (10)
-					};		
-					
-					for (let attempt = 0; attempt < maxRetries; attempt++) {
-						try {
-							const response = await fetch(apiUrl, {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify(searchParamsForPage),
-							});
-			
-							if (!response.ok) {
-								let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
-								try {
-									const errorData = await response.json() as ApiErrorData;
-									errorMessage = errorData.message ?? errorData.error ?? errorMessage;
-								} catch (e) {
-									// Ignore if response body isn't JSON
-								}
-								// Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
-								if (attempt === maxRetries - 1) {
-									throw new Error(errorMessage);
-								} else {
-									lastError = new Error(errorMessage);
-								}
-							} else {
-								const data = (await response.json()) as BidResponse;
-	
-								if (data.status === 1 && data.response?.response?.docs) {
-									allBids.push(...data.response.response.docs);
-									
-									// Check if this is the last page and break if necessary
-									if (data.response.response.docs.length < RESULTS_PER_PAGE) {
-										success = true; // Request successful
-										break; // Break the retry loop and the page loop
-									}
-									success = true;
-									break; // Break the retry loop, continue to next page
-								} else {
-									// Treat unexpected data structure as fatal error
-									throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
-								}
-							}
-						} catch (err) {
-							// Ensure we assign a proper Error object or null here
-							if (err instanceof Error) {
-								lastError = err;
-							} else if (typeof err === 'string') {
-								lastError = new Error(err);
-							} else {
-								lastError = new Error("An unknown fetch error occurred.");
-							}
-	
-							if (attempt === maxRetries - 1) {
-								// On the last attempt, re-throw the error to exit the outer try/catch
-								throw err;
-							}
-						}
-	
-						if (!success) {
-							// Exponential backoff: 1s, 2s, 4s...
-							const waitTime = baseDelayMs * Math.pow(2, attempt);
-							console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
-							await delay(waitTime);
-						}
-					} // End of retry loop
-					
-					if (!success && lastError) {
-						throw lastError; // Propagate error if all retries failed for a page
-					} else if (!success) {
-						// This handles the case where the bid list might be shorter than requested
-						break;
-					}
-			
-				}
+                const apiUrl = '/api/search-bids';
+                let success = false;
+                // FIX: Explicitly type lastError as Error | null to satisfy ESLint and TypeScript
+                let lastError: Error | null = null;
+    
+                // Determine search parameters based on RSP flag
+                const baseParams = RSP ? DEFAULT_SEARCH_PARAMS : BOKARO_SEARCH_PARAMS;
+                const searchParamsForPage: SearchParameters = {
+                    ...baseParams,
+                    page: page, // Use the current page number in the loop
+                    rows: RESULTS_PER_PAGE, // Always request the max per page (10)
+                };  
+                
+                for (let attempt = 0; attempt < maxRetries; attempt++) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(searchParamsForPage),
+                        });
+            
+                        if (!response.ok) {
+                            let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
+                            try {
+                                const errorData = await response.json() as ApiErrorData;
+                                errorMessage = errorData.message ?? errorData.error ?? errorMessage;
+                            } catch (e) {
+                                // Ignore if response body isn't JSON
+                            }
+                            // Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
+                            if (attempt === maxRetries - 1) {
+                                throw new Error(errorMessage);
+                            } else {
+                                lastError = new Error(errorMessage);
+                            }
+                        } else {
+                            const data = (await response.json()) as BidResponse;
+    
+                            if (data.status === 1 && data.response?.response?.docs) {
+                                allBids.push(...data.response.response.docs);
+                                
+                                // Check if this is the last page and break if necessary
+                                if (data.response.response.docs.length < RESULTS_PER_PAGE) {
+                                    success = true; // Request successful
+                                    break; // Break the retry loop and the page loop
+                                }
+                                success = true;
+                                break; // Break the retry loop, continue to next page
+                            } else {
+                                // Treat unexpected data structure as fatal error
+                                throw new Error(data.message || `Received unexpected data structure on page ${page}.`);
+                            }
+                        }
+                    } catch (err) {
+                        // Ensure we assign a proper Error object or null here
+                        if (err instanceof Error) {
+                            lastError = err;
+                        } else if (typeof err === 'string') {
+                            lastError = new Error(err);
+                        } else {
+                            lastError = new Error("An unknown fetch error occurred.");
+                        }
+    
+                        if (attempt === maxRetries - 1) {
+                            // On the last attempt, re-throw the error to exit the outer try/catch
+                            throw err;
+                        }
+                    }
+    
+                    if (!success) {
+                        // Exponential backoff: 1s, 2s, 4s...
+                        const waitTime = baseDelayMs * Math.pow(2, attempt);
+                        // console.log(`Retrying fetch for page ${page} in ${waitTime}ms... (Attempt ${attempt + 1} of ${maxRetries})`);
+                        await delay(waitTime);
+                    }
+                } // End of retry loop
+                
+                if (!success && lastError) {
+                    throw lastError; // Propagate error if all retries failed for a page
+                } else if (!success) {
+                    // This handles the case where the bid list might be shorter than requested
+                    break;
+                }
                 
             } // End of page loop
 
@@ -304,87 +246,119 @@ const App: React.FC = () => {
         }
     };
 
-	const fetchBidsBSP = async () => {
-		fetchBids(false).catch((err) => {
-			setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
-			console.error(err);
-		});
-	};
+    const fetchBidsBSP = async () => {
+        fetchBids(false).catch((err) => {
+            setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
+            console.error(err);
+        });
+    };
 
-	const fetchBidsRSP = async () => {
-		fetchBids(true).catch((err) => {
-			setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
-			console.error(err);
-		});
-	};
+    const fetchBidsRSP = async () => {
+        fetchBids(true).catch((err) => {
+            setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
+            console.error(err);
+        });
+    };
 
-	useEffect(() => {
-        // Initial client-side fetch on load (10 results)
+    useEffect(() => {
         fetchBids(true).catch((err) => {
             setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
             console.error(err);
         });
     }, []);
 
+    // Helper for rendering the grid content
+    const renderGridContent = () => {
+        if (loading) {
+            // Render 10 skeletons when loading
+            return Array.from({ length: 10 }).map((_, index) => (
+                <BidSkeleton key={index} />
+            ));
+        }
+
+        if (error) {
+            return null; // Error is handled outside the grid
+        }
+
+        if (bids.length === 0) {
+            return null; // Empty message is handled outside the grid
+        }
+
+        // Render actual bids
+        return bids.map((bid) => (
+            <a 
+                key={bid.id} 
+                href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-2xl"
+            >
+                <h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
+                    {bid.b_category_name[0]}
+                </h2>
+                <div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
+                    <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
+                    {/* Date formatting updated to DD/MM/YYYY using 'en-GB' */}
+                    <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
+                    <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
+                    <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
+                    <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
+                    <p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
+                        Bid Number: {bid.b_bid_number[0]}
+                    </p>
+                </div>
+            </a>
+        ));
+    };
+
     return (
-        // Max-width changed to 50vw as requested
         <div className="p-6 min-[1400]:w-[80vw] max-w-full mx-auto font-sans bg-white min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
             <h1 className="text-3xl font-bold text-center text-indigo-700">GeM Ongoing Bids Search Results</h1>
             
-            {/* Slider for Results Count Selection */}
-            <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
-				<div className="flex justify-between flex-col md:flex-row items-center md:items-start">
-					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
-						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
-					</label>
-					<span className="flex gap-2">
+            {/* Slider and Controls */}
+            <div className="bg-gray-50 p-4 rounded-2xl shadow-lg border border-gray-200 my-6">
+                <div className="flex justify-between flex-col md:flex-row items-center md:items-start">
+                    <label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
+                        Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
+                    </label>
+                    <span className="flex gap-2">
 
-						{loading ?
-						
-							<button
-								disabled={loading}
-								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-							>
-								{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-								{`Loading ${requestedResults} Bids`}
-							</button>
-
-						:
-
-							<div className="flex gap-2">
-								<button
-									onClick={fetchBidsRSP}
-									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-								>
-									{`Fetch ${requestedResults} Bids from RSP`}
-								</button>
-								<button
-									onClick={fetchBidsBSP}
-									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-								>
-									{`Fetch ${requestedResults} Bids from BSP`}
-								</button>
-							</div>
-
-						}
-
-					</span>
-					<div className="text-sm text-gray-500 my-2 md:my-0">
-						Displaying {bids.length} bids (Requested: {requestedResults})
-					</div>	
-				</div>
+                        {/* Simplified Loading Button based on state */}
+                        <button
+                            disabled={loading}
+                            onClick={loading ? undefined : fetchBidsRSP}
+                            className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+                        >
+                            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                            {loading ? `Loading...` : `Fetch ${requestedResults} from RSP`}
+                        </button>
+                        
+                        {/* Always show the BSP button, but disable it if loading is true */}
+                        <button
+                            disabled={loading}
+                            onClick={loading ? undefined : fetchBidsBSP}
+                            className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+                        >
+                            {`Fetch ${requestedResults} from BSP`}
+                        </button>
+                    </span>
+                    <div className="text-sm text-gray-500 my-2 md:my-0">
+                        Displaying {bids.length} bids (Requested: {requestedResults})
+                    </div>
+                </div>
                 <div className="flex justify-between text-sm text-gray-500 mt-1">
                     <span>10 Results</span>
-					<span>100 Results</span>
-					<span>200 Results</span>
-					<span>300 Results</span>
-					<span>400 Results</span>
+                    <span>100 Results</span>
+                    <span>200 Results</span>
+                    <span>300 Results</span>
+                    <span>400 Results</span>
                     <span>500 Results</span>
                 </div>
                 <input
                     id="result-slider"
-					name="result-slider"
+                    name="result-slider"
                     type="range"
                     min="10"
                     max="500"
@@ -396,48 +370,22 @@ const App: React.FC = () => {
             </div>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-4lg relative mb-4">
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-2xl relative mb-4">
                     <p className="font-bold">Error</p>
                     <p className="text-sm">{error}</p>
                 </div>
             )}
 
             {!loading && bids.length === 0 && !error && (
-                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-4lg bg-white">
+                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-2xl bg-white">
                     No bids found for the current search parameters.
                 </div>
             )}
 
-            {/* Two-column grid for results */}
+            {/* Two-column grid for results (now dynamically renders skeletons or content) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {bids.map((bid) => (
-                    // Replaced div with <a> tag and added the link structure
-                    <a 
-                        key={bid.id} 
-                        href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
-                    >
-						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
-							{bid.b_category_name[0]}
-						</h2>
-						<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
-                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
-                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
-							<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
-								Bid Number: {bid.b_bid_number[0]}
-							</p>
-						</div>
-                    </a>
-                ))}
+                {renderGridContent()}
             </div>
         </div>
     );
 };
-
-export default App;
