@@ -87,6 +87,177 @@ const BOKARO_SEARCH_PARAMS: SearchParameters = {
     rows: RESULTS_PER_PAGE, // Fixed to 10 for multi-page requests
 };
 
+/**
+ * Skeleton component to show loading state for a single bid card.
+ * Uses pulsing animation for a modern feel.
+ */
+const BidSkeleton: React.FC = () => {
+	return (
+		<>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
+				</div>
+			</div>
+		</>
+	);
+};
+
 // Main application component
 export default function App() {
     const [bids, setBids] = useState<BidDocument[]>([]);
@@ -108,9 +279,9 @@ export default function App() {
 
     // Function to fetch data from the Next.js API Route
     const fetchBids = async (RSP: boolean) => {
+        setBids([]); // Clear previous results
         setLoading(true);
         setError(null);
-        setBids([]); // Clear previous results
         
         // Configuration for retries
         const maxRetries = 3; 
@@ -305,6 +476,7 @@ export default function App() {
     };
 
 	const fetchBidsBSP = async () => {
+		setBids([]);
 		fetchBids(false).catch((err) => {
 			setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
 			console.error(err);
@@ -312,6 +484,7 @@ export default function App() {
 	};
 
 	const fetchBidsRSP = async () => {
+		setBids([]);
 		fetchBids(true).catch((err) => {
 			setError(`Failed to fetch bids: ${err instanceof Error ? err.message : 'Unknown error'}`);
 			console.error(err);
@@ -340,7 +513,7 @@ export default function App() {
 					</label>
 					<span className="flex gap-2">
 
-						{loading ?
+						{loading ? (
 						
 							<button
 								disabled={loading}
@@ -350,7 +523,7 @@ export default function App() {
 								{`Loading ${requestedResults} Bids`}
 							</button>
 
-						:
+						) : (
 
 							<div className="flex gap-2">
 								<button
@@ -367,7 +540,7 @@ export default function App() {
 								</button>
 							</div>
 
-						}
+						)}
 
 					</span>
 					<div className="text-sm text-gray-500 my-2 md:my-0">
@@ -396,45 +569,55 @@ export default function App() {
             </div>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-4lg relative mb-4">
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-2xl relative mb-4">
                     <p className="font-bold">Error</p>
                     <p className="text-sm">{error}</p>
                 </div>
             )}
 
             {!loading && bids.length === 0 && !error && (
-                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-4lg bg-white">
+                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-2xl bg-white">
                     No bids found for the current search parameters.
                 </div>
             )}
 
             {/* Two-column grid for results */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {bids.map((bid) => (
-                    // Replaced div with <a> tag and added the link structure
-                    <a 
-                        key={bid.id} 
-                        href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
-                    >
-						<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
-							{bid.b_category_name[0]}
-						</h2>
-						<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
-                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
-                            <p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
-							<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
-							<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
-								Bid Number: {bid.b_bid_number[0]}
-							</p>
-						</div>
-                    </a>
-                ))}
+				
+				{loading ? (
+							
+					<BidSkeleton />
+
+				) : (
+
+					bids.map((bid) => (
+						<a 
+							key={bid.id} 
+							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-2xl"
+						>
+							<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
+								{bid.b_category_name[0]}
+							</h2>
+							<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]}</span></p>
+								{/* Date formatting updated to DD/MM/YYYY using 'en-GB' */}
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
+								<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
+									Bid Number: {bid.b_bid_number[0]}
+								</p>
+							</div>
+						</a>
+					))
+
+				)}
+
             </div>
         </div>
     );
