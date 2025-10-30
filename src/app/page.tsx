@@ -324,25 +324,31 @@ export default function App() {
                         Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
                     </label>
                     <span className="flex gap-2">
-
-                        {/* Simplified Loading Button based on state */}
-                        <button
-                            disabled={loading}
-                            onClick={loading ? undefined : fetchBidsRSP}
-                            className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-                        >
-                            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            {loading ? `Loading...` : `Fetch ${requestedResults} from RSP`}
-                        </button>
-                        
-                        {/* Always show the BSP button, but disable it if loading is true */}
-                        <button
-                            disabled={loading}
-                            onClick={loading ? undefined : fetchBidsBSP}
-                            className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
-                        >
-                            {`Fetch ${requestedResults} from BSP`}
-                        </button>
+					{loading ?
+						
+						<button
+							disabled={loading}
+							className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+						>
+							{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+							{`Loading ${requestedResults} Bids`}
+						</button>
+						:
+						<div className="flex gap-2">
+							<button
+								onClick={fetchBidsRSP}
+								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+							>
+								{`Fetch ${requestedResults} Bids from RSP`}
+							</button>
+							<button
+								onClick={fetchBidsBSP}
+								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+							>
+								{`Fetch ${requestedResults} Bids from BSP`}
+							</button>
+						</div>
+					}
                     </span>
                     <div className="text-sm text-gray-500 my-2 md:my-0">
                         Displaying {bids.length} bids (Requested: {requestedResults})
