@@ -92,8 +92,9 @@ const BOKARO_SEARCH_PARAMS: SearchParameters = {
  * Uses pulsing animation for a modern feel.
  */
 const BidSkeleton: React.FC = () => {
-	return (
-		<>
+	const elements = [];
+	for (let i = 0; i < 10; i++) {
+	  	elements.push(
 			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
 				{/* Title/Category Placeholder */}
 				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
@@ -110,152 +111,10 @@ const BidSkeleton: React.FC = () => {
 					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
 				</div>
 			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-			<div className="bg-gray-100 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-2xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-full py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-2/3 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					<div className="h-4 bg-gray-300 rounded w-1/2 py-1"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-6 bg-indigo-200 rounded-full mt-2 col-span-1 md:col-span-2"></div>
-				</div>
-			</div>
-		</>
-	);
+		);
+	}
+
+	return elements;
 };
 
 // Main application component
