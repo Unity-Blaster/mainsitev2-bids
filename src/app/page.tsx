@@ -334,7 +334,6 @@ export default function App() {
             <script async src="https://cdn.tailwindcss.com"></script>
             <h1 className="text-3xl font-bold text-center text-indigo-700">GeM Ongoing Bids Search Results</h1>
             
-            {/* Slider for Results Count Selection */}
             <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
 				<div className="flex justify-between flex-col md:flex-row items-center md:items-start relative">
 					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
