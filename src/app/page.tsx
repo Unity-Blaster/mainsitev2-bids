@@ -336,11 +336,11 @@ export default function App() {
             
             {/* Slider for Results Count Selection */}
             <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
-				<div className="flex justify-between flex-col md:flex-row items-center md:items-start">
+				<div className="flex justify-between flex-col md:flex-row items-center md:items-start relative">
 					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
 						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
 					</label>
-					<span className="flex gap-2">
+					<span className="flex justify-center items-center gap-2 absolute top-0 w-full">
 
 						{loading ? (
 						
@@ -376,7 +376,7 @@ export default function App() {
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
 				</div>
-                <div className="flex justify-between text-sm text-gray-500 mt-1">
+                <div className="flex justify-between text-sm text-gray-500 mt-5">
                     <span>10 Results</span>
 					<span>100 Results</span>
 					<span>200 Results</span>
