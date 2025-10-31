@@ -87,36 +87,6 @@ const BOKARO_SEARCH_PARAMS: SearchParameters = {
     rows: RESULTS_PER_PAGE, // Fixed to 10 for multi-page requests
 };
 
-/**
- * Skeleton component to show loading state for a single bid card.
- * Uses pulsing animation for a modern feel.
- */
-const BidSkeleton: React.FC = () => {
-	const elements = [];
-	for (let i = 0; i < 10; i++) {
-	  	elements.push(
-			<div className="bg-gray-50 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-4xl animate-pulse">
-				{/* Title/Category Placeholder */}
-				<div className="h-14 bg-gray-300 rounded-2xl w-full mb-2"></div>
-				
-				{/* Details Grid Placeholder */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					{/* Bid Number Placeholder */}
-					<div className="h-[30px] text-indigo-600 bg-indigo-100 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300"></div>
-				</div>
-			</div>
-		);
-	}
-
-	return elements;
-};
-
 // Main application component
 export default function App() {
     const [bids, setBids] = useState<BidDocument[]>([]);
@@ -480,4 +450,34 @@ export default function App() {
             </div>
         </div>
     );
+};
+
+/**
+ * Skeleton component to show loading state for a single bid card.
+ * Uses pulsing animation for a modern feel.
+ */
+const BidSkeleton: React.FC = () => {
+	const elements = [];
+	for (let i = 0; i < 10; i++) {
+	  	elements.push(
+			<div className="bg-gray-50 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-4xl animate-pulse">
+				{/* Title/Category Placeholder */}
+				<div className="h-14 bg-gray-300 rounded-2xl w-full mb-2"></div>
+				
+				{/* Details Grid Placeholder */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					{/* Bid Number Placeholder */}
+					<div className="h-[30px] text-indigo-600 bg-indigo-100 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300"></div>
+				</div>
+			</div>
+		);
+	}
+ 
+	return elements;
 };
