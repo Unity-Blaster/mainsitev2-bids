@@ -377,10 +377,10 @@ export default function App() {
 				</div>
                 <div className="flex justify-between text-sm text-gray-500 mt-5">
                     <span>10 Results</span>
-					<span>100 Results</span>
-					<span>200 Results</span>
-					<span>300 Results</span>
-					<span>400 Results</span>
+					<span>100</span>
+					<span>200</span>
+					<span>300</span>
+					<span>400</span>
                     <span>500 Results</span>
                 </div>
                 <input
