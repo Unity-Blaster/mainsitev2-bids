@@ -353,16 +353,16 @@ export default function App() {
 
 						) : (
 
-							<div className="flex gap-2">
+							<div className="flex gap-2 flex-col sm:flex-row">
 								<button
 									onClick={fetchBidsRSP}
-									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-l-2xl rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-t-2xl rounded-b-lg sm:rounded-l-2xl sm:rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
 								>
 									{`Fetch ${requestedResults} Bids from RSP`}
 								</button>
 								<button
 									onClick={fetchBidsBSP}
-									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-r-2xl rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-t-lg rounded-b-2xl sm:rounded-r-2xl sm:rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
 								>
 									{`Fetch ${requestedResults} Bids from BSP`}
 								</button>
@@ -375,7 +375,7 @@ export default function App() {
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
 				</div>
-                <div className="flex justify-between text-sm text-gray-500 mt-16 md:mt-14 lg:mt-5">
+                <div className="flex justify-between text-sm text-gray-500 mt-28 sm:mt-16 md:mt-14 lg:mt-5">
                     <span>10 Results</span>
 					<span>100</span>
 					<span>200</span>
