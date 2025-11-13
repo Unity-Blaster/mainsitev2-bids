@@ -459,7 +459,10 @@ const BidSkeleton: React.FC = () => {
 	const elements = [];
 	for (let i = 0; i < 10; i++) {
 	  	elements.push(
-			<div className="bg-gray-50 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-4xl animate-pulse">
+			<div
+				key={i}
+				className="bg-gray-50 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-4xl animate-pulse"
+			>
 				{/* Title/Category Placeholder */}
 				<div className="h-14 bg-gray-300 rounded-2xl w-full mb-2"></div>
 				
