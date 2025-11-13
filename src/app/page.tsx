@@ -339,7 +339,7 @@ export default function App() {
 					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
 						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
 					</label>
-					<span className="flex justify-center items-center gap-2 absolute top-8 lg:top-0 w-full">
+					<span className="flex justify-center items-center gap-2 absolute top-20 md:top-8 lg:top-0 w-full">
 
 						{loading ? (
 						
@@ -375,7 +375,7 @@ export default function App() {
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
 				</div>
-                <div className="flex justify-between text-sm text-gray-500 mt-14 lg:mt-5">
+                <div className="flex justify-between text-sm text-gray-500 mt-16 md:mt-14 lg:mt-5">
                     <span>10 Results</span>
 					<span>100</span>
 					<span>200</span>
