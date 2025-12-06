@@ -430,15 +430,33 @@ export default function App() {
 								{bid.b_category_name[0]}
 							</h2>
 							<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">Ministry: <span className="text-gray-600">{bid.ba_official_details_minName[0]}</span></p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">Department: <span className="text-gray-600">{bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')}</span></p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">
+									{`Ministry: `}
+									<span className="text-gray-600">{bid.ba_official_details_minName[0]}</span>
+								</p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">
+									{`Department: `}
+									<span className="text-gray-600">{bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')}</span>
+								</p>
 								{/* Date formatting updated to DD/MM/YYYY using 'en-GB' */}
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Starting Date: <span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Closing Date: <span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span></p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Created By: <span className="text-gray-600">{bid['b.b_created_by'][0]}</span></p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">Total Quantity: <span className="text-gray-600">{bid.b_total_quantity[0]}</span></p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+									{`Starting Date: `}
+									<span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span>
+								</p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+									{`Closing Date: `}
+									<span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span>
+								</p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+									{`Created By: `}
+									<span className="text-gray-600">{bid['b.b_created_by'][0]}</span>
+								</p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+									{`Total Quantity: `}
+									<span className="text-gray-600">{bid.b_total_quantity[0]}</span>
+								</p>
 								<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
-									Bid Number: {bid.b_bid_number[0]}
+									{`Bid Number: `}{bid.b_bid_number[0]}
 								</p>
 							</div>
 						</a>
