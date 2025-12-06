@@ -423,7 +423,7 @@ export default function App() {
 					bids.map((bid) => (
 						<a 
 							key={bid.id} 
-							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.id}`}
+							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : bid.b_id[0]}`}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
