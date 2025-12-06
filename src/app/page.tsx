@@ -28,6 +28,8 @@ interface BidDocument {
   ba_official_details_deptName: string[];
   'b.b_created_by': string[];
   b_total_quantity: string[];
+  b_id: string[];
+  b_id_parent: string[];
 }
 
 interface InnerResponse {
@@ -454,6 +456,14 @@ export default function App() {
 								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
 									{`Total Quantity: `}
 									<span className="text-gray-600">{bid.b_total_quantity[0]}</span>
+								</p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+									{`ID: `}
+									<span className="text-gray-600">{bid.b_id[0]}</span>
+								</p>
+								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+									{`ID Parent: `}
+									<span className="text-gray-600">{bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : "N/A"}</span>
 								</p>
 								<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
 									{`Bid Number: `}{bid.b_bid_number[0]}
