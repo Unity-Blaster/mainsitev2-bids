@@ -516,21 +516,21 @@ const BidSkeleton: React.FC = () => {
 	  	elements.push(
 			<div
 				key={i}
-				className="bg-gray-50 p-4 shadow-md border border-gray-200 flex flex-col justify-between rounded-4xl animate-pulse"
+				className="bg-gray-50 dark:bg-gray-900 p-4 shadow-md border border-gray-200 dark:border-gray-700 flex flex-col justify-between rounded-4xl animate-pulse"
 			>
 				{/* Title/Category Placeholder */}
-				<div className="h-14 bg-gray-300 rounded-2xl w-full mb-2"></div>
+				<div className="h-14 bg-gray-300 dark:bg-gray-700 rounded-2xl w-full mb-2"></div>
 				
 				{/* Details Grid Placeholder */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
-					<div className="h-[30px] text-indigo-800 bg-indigo-50 py-1 rounded-md w-full border border-indigo-200"></div>
+					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
 					{/* Bid Number Placeholder */}
-					<div className="h-[30px] text-indigo-600 bg-indigo-100 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300"></div>
+					<div className="h-[30px] text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300 dark:border-indigo-600"></div>
 				</div>
 			</div>
 		);
