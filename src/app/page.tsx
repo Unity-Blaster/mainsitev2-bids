@@ -332,7 +332,7 @@ export default function App() {
 
     return (
         // Max-width changed to 50vw as requested
-        <div className="p-6 min-[1650]:w-[80vw] max-w-full mx-auto font-sans bg-white min-h-screen">
+        <div className="p-6 min-[1650]:w-[1400] max-w-full mx-auto font-sans bg-white min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
             <h1 className="text-3xl font-bold text-center text-indigo-700">GeM Ongoing Bids Search Results</h1>
             
