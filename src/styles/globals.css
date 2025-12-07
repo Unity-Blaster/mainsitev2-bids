@@ -4,3 +4,10 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+@media (prefers-color-scheme: dark) {
+	body {
+        background-color: var(--color-gray-950) /* oklch(21% 0.034 264.665) = #101828 */;
+		color: var(--color-gray-50);
+	}
+}

@@ -335,14 +335,14 @@ export default function App() {
 
     return (
         // Max-width changed to 50vw as requested
-        <div className="p-6 min-[1650]:w-[1400] max-w-full mx-auto font-sans bg-white min-h-screen">
+        <div className="p-6 min-[1650]:w-[1400] max-w-full mx-auto font-sans bg-white dark:bg-gray-950 min-h-screen">
             <script async src="https://cdn.tailwindcss.com"></script>
-            <h1 className="text-3xl font-bold text-center text-indigo-700">GeM Ongoing Bids Search Results</h1>
+            <h1 className="text-3xl font-bold text-center text-indigo-700 dark:text-indigo-400">GeM Ongoing Bids Search Results</h1>
             
-            <div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
+            <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-4xl shadow-lg border border-gray-200 dark:border-gray-700 my-6">
 				<div className="flex justify-between flex-col md:flex-row items-center md:items-start relative">
-					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 mb-2 md:mb-0">
-						Results Count: <span className="text-indigo-600 font-bold">{requestedResults}</span>
+					<label htmlFor="result-slider" className="block text-lg font-medium text-gray-700 dark:text-gray-400 mb-2 md:mb-0">
+						Results Count: <span className="text-indigo-600 dark:text-indigo-400 font-bold">{requestedResults}</span>
 					</label>
 					<span className="flex justify-center items-center gap-2 absolute top-20 md:top-8 lg:top-0 w-full">
 
@@ -350,7 +350,7 @@ export default function App() {
 						
 							<button
 								disabled={loading}
-								className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-2xl hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+								className="w-fit bg-indigo-600 dark:bg-indigo-400 text-white dark:text-gray-900 py-2 px-4 rounded-2xl hover:bg-indigo-700 dark:hover:bg-indigo-500 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
 							>
 								{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 								{`Loading ${requestedResults} Bids`}
@@ -361,13 +361,13 @@ export default function App() {
 							<div className="flex gap-2 flex-col sm:flex-row">
 								<button
 									onClick={fetchBidsRSP}
-									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-t-2xl rounded-b-lg sm:rounded-l-2xl sm:rounded-r-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+									className="w-fit bg-indigo-600 dark:bg-indigo-400 text-white dark:text-gray-900 py-2 px-4 rounded-t-2xl rounded-b-lg sm:rounded-l-2xl sm:rounded-r-lg hover:bg-indigo-700 dark:hover:bg-indigo-500 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
 								>
 									{`Fetch ${requestedResults} Bids from RSP`}
 								</button>
 								<button
 									onClick={fetchBidsBSP}
-									className="w-fit bg-indigo-600 text-white py-2 px-4 rounded-t-lg rounded-b-2xl sm:rounded-r-2xl sm:rounded-l-lg hover:bg-indigo-700 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
+									className="w-fit bg-indigo-600 dark:bg-indigo-400 text-white dark:text-gray-900 py-2 px-4 rounded-t-lg rounded-b-2xl sm:rounded-r-2xl sm:rounded-l-lg hover:bg-indigo-700 dark:hover:bg-indigo-500 transition duration-150 disabled:opacity-50 flex items-center justify-center shadow-md font-semibold"
 								>
 									{`Fetch ${requestedResults} Bids from BSP`}
 								</button>
@@ -376,11 +376,11 @@ export default function App() {
 						)}
 
 					</span>
-					<div className="text-sm text-gray-500 my-2 md:my-0">
+					<div className="text-sm text-gray-500 dark:text-gray-400 my-2 md:my-0">
 						Displaying {bids.length} bids (Requested: {requestedResults})
 					</div>	
 				</div>
-                <div className="flex justify-between text-sm text-gray-500 mt-28 sm:mt-16 md:mt-14 lg:mt-5">
+                <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mt-28 sm:mt-16 md:mt-14 lg:mt-5">
                     <span>10 Results</span>
 					<span>100</span>
 					<span>200</span>
@@ -397,19 +397,19 @@ export default function App() {
                     step="10"
                     value={sliderValue} 
                     onChange={handleSliderChange}
-                    className="w-[94%] h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg transition-colors duration-200 mx-[3%]"
+                    className="w-[94%] h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer range-lg transition-colors duration-200 mx-[3%]"
                 />
             </div>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-2xl relative mb-4">
+                <div className="bg-red-100 dark:bg-red-800 border border-red-400 dark:border-red-300 text-red-700 dark:text-red-200 px-4 py-3 rounded-2xl relative mb-4">
                     <p className="font-bold">Error</p>
                     <p className="text-sm">{error}</p>
                 </div>
             )}
 
             {!loading && bids.length === 0 && !error && (
-                <div className="text-center text-gray-500 py-10 border border-gray-300 rounded-2xl bg-white">
+                <div className="text-center text-gray-500 dark:text-gray-400 py-10 border border-gray-300 dark:border-gray-700 rounded-2xl bg-white dark:bg-gray-900">
                     No bids found for the current search parameters.
                 </div>
             )}
@@ -429,46 +429,46 @@ export default function App() {
 							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : bid.b_id[0]}`}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="bg-gray-50 p-4 shadow-lg border border-gray-200 hover:shadow-xl hover:shadow-indigo-100 hover:border-indigo-500 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
+							className="bg-gray-50 dark:bg-gray-900 p-4 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
 						>
-							<h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 wrap-break-word transition-colors duration-300 pb-2">
+							<h2 className="text-lg font-semibold text-gray-800 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 wrap-break-word transition-colors duration-300 pb-2">
 								{bid.b_category_name[0]}
 							</h2>
-							<div className="text-sm text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-2">
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200">
+							<div className="text-sm text-gray-600 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 gap-2">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200 dark:border-indigo-700">
 									{`Ministry: `}
-									<span className="text-gray-600">{bid.ba_official_details_minName[0]}</span>
+									<span className="text-gray-600 dark:text-gray-400">{bid.ba_official_details_minName[0]}</span>
 								</p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200 dark:border-indigo-700">
 									{`Department: `}
-									<span className="text-gray-600">{bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')}</span>
+									<span className="text-gray-600 dark:text-gray-400">{bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')}</span>
 								</p>
 								{/* Date formatting updated to DD/MM/YYYY using 'en-GB' */}
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`Starting Date: `}
-									<span className="text-gray-600">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span>
+									<span className="text-gray-600 dark:text-gray-400">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span>
 								</p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`Closing Date: `}
-									<span className="text-gray-600">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span>
+									<span className="text-gray-600 dark:text-gray-400">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span>
 								</p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`Created By: `}
-									<span className="text-gray-600">{bid['b.b_created_by'][0]}</span>
+									<span className="text-gray-600 dark:text-gray-400">{bid['b.b_created_by'][0]}</span>
 								</p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`Total Quantity: `}
-									<span className="text-gray-600">{bid.b_total_quantity[0]}</span>
+									<span className="text-gray-600 dark:text-gray-400">{bid.b_total_quantity[0]}</span>
 								</p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`ID: `}
-									<span className="text-gray-600">{bid.b_id[0]}</span>
+									<span className="text-gray-600 dark:text-gray-400">{bid.b_id[0]}</span>
 								</p>
-								<p className="font-medium text-indigo-800 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-200">
+								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`ID Parent: `}
-									<span className="text-gray-600">{bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : "N/A"}</span>
+									<span className="text-gray-600 dark:text-gray-400">{bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : "N/A"}</span>
 								</p>
-								<p className="font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 col-span-1 md:col-span-2 flex items-center justify-center">
+								<p className="font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 dark:border-indigo-600 col-span-1 md:col-span-2 flex items-center justify-center">
 									{`Bid Number: `}{bid.b_bid_number[0]}
 								</p>
 							</div>
@@ -482,11 +482,11 @@ export default function App() {
 
 			{/* Footer */}
 
-			<div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6 text-center text-gray-600 flex justify-center items-center gap-4 flex-col md:flex-row">
+			<div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-4xl shadow-lg border border-gray-200 dark:border-gray-700 my-6 text-center text-gray-600 dark:text-gray-400 flex justify-center items-center gap-4 flex-col md:flex-row">
 				{`© `}{year}
 				<Link 
 					href="https://unityblaster.xyz" 
-					className="text-indigo-600 font-semibold hover:underline" 
+					className="text-indigo-600 dark:text-indigo-400 hover:underline hover:text-indigo-700 dark:hover:text-indigo-500 font-semibold" 
 					target="_blank"
 					rel="noopener noreferrer"
 				>
@@ -497,7 +497,7 @@ export default function App() {
 					href="https://github.com/Unity-Blaster/mainsitev2-bids"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center justify-center font-bold border border-black px-2 py-1 rounded-md w-fit"
+					className="flex items-center justify-center font-bold border border-black dark:border-gray-700 px-2 py-1 rounded-md w-fit"
 				>
 					<Github className="h-4 w-4 mr-1" /> GitHub
 				</Link>
