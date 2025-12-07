@@ -475,6 +475,11 @@ export default function App() {
 				)}
 
             </div>
+
+			{/* Footer */}
+			<div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
+				©  
+			</div>
         </div>
     );
 };

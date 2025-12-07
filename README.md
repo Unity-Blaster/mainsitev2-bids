@@ -1,121 +1,118 @@
-# GeM Bids Watcher Documentation
+# GeM Bids Watcher
 
 ## Project Overview
 
-This project is a Next.js web application designed to watch and display ongoing bids from the Government e-Marketplace (GeM) website. It provides a user interface to fetch and view bid details from specific departments, namely Rourkela Steel Plant (RSP) and Bokaro Steel Plant (BSP).
+**GeM Bids Watcher** is a Next.js web application designed to monitor and display ongoing bids from the Government e-Marketplace (GeM) website. It serves as a specialized, real-time dashboard for tracking procurement opportunities specifically for:
 
-The application is built with the [T3 Stack](https://create.t3.gg/) ([docs](t3-stack.md)), which includes:
+- **Rourkela Steel Plant (RSP)**
+- **Bokaro Steel Plant (BSP)**
 
-- [Next.js](https://nextjs.org)
-- [React](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com)
-- [TypeScript](https://www.typescriptlang.org/)
-- [tRPC](https://trpc.io) (although not explicitly used in the provided code)
+The application provides a clean, responsive interface to view bid details such as Ministry, Department, Dates, and Quantity, with direct links to the official bid documents.
+
+## Features
+
+- **Live Bid Search:** Fetches real-time bid data via a Next.js API route that proxies requests to GeM.
+- **Organization Filtering:** One-click presets for fetching bids from RSP and BSP.
+- **Responsive UI:** Built with Tailwind CSS v4 for a seamless experience on desktop and mobile.
+- **Pagination & Load Handling:**  Supports fetching multiple pages of results with retry logic and exponential backoff to handle API rate limits or instability.
+
+## Tech Stack
+
+Scaffolded with the [T3 Stack](https://create.t3.gg/), this application leverages:
+
+- **Framework:** [Next.js 15](https://nextjs.org) (App Router)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Validation:** [Zod](https://zod.dev/) & [@t3-oss/env-nextjs](https://env-nextjs.vercel.app/)
+- **Package Manager:** [pnpm](https://pnpm.io/) (v10+)
+
+*Note: While initialized with T3, this project currently uses standard Next.js API routes (`src/app/api/...`) rather than tRPC for backend logic.*
 
 ## Getting Started
 
-To get the project up and running, follow these steps:
+### Prerequisites
+- Node.js (Latest LTS recommended)
+- pnpm (v10.24.0 or compatible)
+
+### Installation
 
 1. **Clone the repository:**
-
-    ```bash
-    git clone <repository-url>
-    cd mainsitev2-bids
-    ```
+   ```bash
+   git clone <repository-url>
+   cd mainsitev2-bids
+   ```
 
 2. **Install dependencies:**
-
-    The project uses `pnpm` as the package manager.
-
-    ```bash
-    pnpm install
-    ```
+   ```bash
+   pnpm install
+   ```
 
 3. **Set up environment variables:**
-
-    The project uses `@t3-oss/env-nextjs` to manage environment variables. Create a `.env` file in the root of the project by copying the `.env.example` file.
-
-    ```bash
-    cp .env.example .env
-    ```
-
-    The following environment variables are defined in `src/env.js`:
-
-    - `NODE_ENV`: The runtime environment (`development`, `test`, or `production`).
+   ```bash
+   cp .env.example .env
+   ```
+   *Currently, `src/env.js` validates `NODE_ENV`. No external API keys are strictly required for local development yet, as authentication tokens are currently hardcoded (see "Known Issues").*
 
 4. **Run the development server:**
-
-    ```bash
-    pnpm dev
-    ```
-
-    The application will be available at `http://localhost:3000`.
+   ```bash
+   pnpm dev
+   ```
+   The application will be available at `http://localhost:3000`.
 
 ## Project Structure
 
-The project follows a standard Next.js App Router structure.
-
-```directory
-.
-├── src
-│   ├── app
-│   │   ├── layout.tsx       # Root layout
-│   │   ├── page.tsx         # Main page component
-│   │   └── api
-│   │       └── search-bids
-│   │           └── route.ts # API route for fetching bids
-│   ├── env.js             # Environment variable validation
-│   └── styles
-│       └── globals.css      # Global CSS styles
-├── next.config.js         # Next.js configuration
-├── package.json           # Project dependencies and scripts
-└── tsconfig.json          # TypeScript configuration
+```
+├── src/
+│   ├── app/
+│   │   ├── api/search-bids/    # Proxy API route for fetching GeM data
+│   │   ├── page.tsx            # Main dashboard UI & client-side logic
+│   │   └── layout.tsx          # Root layout
+│   ├── env.js                  # Environment variable schema & validation
+│   └── styles/                 # Global styles (Tailwind)
+├── public/                     # Static assets
+└── ...config files
 ```
 
-## API Endpoint
+## Available Scripts
 
-### `/api/search-bids`
+- `pnpm dev`: Starts the development server with Turbopack.
+- `pnpm build`: Builds the application for production.
+- `pnpm start`: Runs the built application.
+- `pnpm check`: Runs linting (ESLint) and type checking (TypeScript).
+- `pnpm format:write`: Formats code using Prettier.
 
-This is a `POST` API route that acts as a proxy to the external GeM API.
+## Deployment
 
-- **Method:** `POST`
-- **Request Body:**
+This application is optimized for deployment on [Vercel](https://vercel.com).
 
-    ```json
-    {
-      "searchType": "ministry-search",
-      "ministry": "Ministry of Steel",
-      "buyerState": "",
-      "organization": "Rourkela Steel Plant" | "Bokaro Steel Plant",
-      "department": "Steel Authority of India Limited",
-      "bidEndFromMin": "",
-      "bidEndToMin": "",
-      "page": 1,
-      "rows": 10
-    }
-    ```
+1. Push your code to a Git repository (GitHub, GitLab, Bitbucket).
+2. Import the project into Vercel.
+3. Vercel will automatically detect Next.js and configure the build settings.
+4. Deploy!
 
-- **Response:**
+## Known Issues & Roadmap
 
-    The API route returns the JSON response from the external GeM API.
-
-## Potential Issues
-
-### Hardcoded CSRF Token and Cookie
-
-The API route at `src/app/api/search-bids/route.ts` uses a hardcoded CSRF token and a hardcoded cookie to make requests to the external GeM API.
+### ⚠️ Hardcoded Authentication
+The API route at `src/app/api/search-bids/route.ts` currently relies on hardcoded session headers (Cookies, CSRF tokens) to communicate with the GeM portal.
 
 ```typescript
 // src/app/api/search-bids/route.ts
-
-const CSRF_TOKEN = '341a0cd222a0eacceb68eaa4e2887aac';
-
 const headers = {
-    // ...
-    'Cookie': 'themeOption=0; TS01dc9e29=01e393167df3e3c0e6ad8d16ee707e9aa4ef062707eef0e3001f6f44cd0250c0a0349be290e0f907b6bc457cdbe83b785e5fbb047ee0159449e74f714f958e4d72ff5533c1; GeM=1474969956.20480.0000; _ga=GA1.3.1621276125.1761280079; _gid=GA1.3.636807168.1761280079; ci_session=57c53bd88419aaa6cbcae894e999ebf4f827ca1a; csrf_gem_cookie=341a0cd222a0eacceb68eaa4e2887aac; TS0174a79d=01e393167df7b0f6acd2ecc5139c5d9f815b61d8321f0127de80522966d813212daa0288f47d6944a9252a7839e38b3287857fd30781b2f2cb19f38c4385e0ad2b682b9fec8edd9758570c06a006ae21e4f8c37c0e25986d9b6099614f4721f93466ef40ab',
+    'Cookie': 'themeOption=0; TS01dc9e29=...; GeM=...; csrf_gem_cookie=<REDACTED>; ...',
 };
 ```
 
-**This is a significant issue.** CSRF tokens and session cookies are temporary and will expire. When they expire, the application will no longer be able to fetch data from the GeM API and will fail with a `403 Forbidden` error.
+**Impact:** When these tokens expire, the API will return `403 Forbidden` or `401 Unauthorized` errors.
+**Future Fix:** Implement a dynamic session scraping mechanism (e.g., using Puppeteer/Playwright) or a proper authentication flow to retrieve fresh tokens before fetching bids.
 
-To fix this, the application needs a mechanism to dynamically fetch a valid CSRF token and cookie before making a request to the `search-bids` endpoint.
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes (`git commit -m 'Add some amazing feature'`).
+4. Push to the branch (`git push origin feature/amazing-feature`).
+5. Open a Pull Request.
+
+---
+*Generated with ❤️ by the T3 Stack*
