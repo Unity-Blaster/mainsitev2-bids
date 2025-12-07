@@ -411,6 +411,7 @@ export default function App() {
                 </div>
             )}
 
+
             {/* Two-column grid for results */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 				
