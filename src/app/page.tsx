@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { Loader2, Github } from 'lucide-react';
 
 /**
  * Interface definitions matching your route.ts for strict typing
@@ -322,6 +323,8 @@ export default function App() {
 		});
 	};
 
+    const year = new Date().getFullYear();
+
 	useEffect(() => {
         // Initial client-side fetch on load (10 results)
         fetchBids(true).catch((err) => {
@@ -477,8 +480,26 @@ export default function App() {
             </div>
 
 			{/* Footer */}
-			<div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6">
-				©  
+
+			<div className="bg-gray-50 p-4 rounded-4xl shadow-lg border border-gray-200 my-6 text-center text-gray-600 flex justify-center items-center gap-4 flex-col md:flex-row">
+				{`© `}{year}
+				<Link 
+					href="https://unityblaster.xyz" 
+					className="text-indigo-600 font-semibold hover:underline" 
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Unity Blaster
+				</Link>
+				{`(Vedant Srivastava). All rights reserved.`}
+				<Link
+					href="https://github.com/Unity-Blaster/mainsitev2-bids"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="flex items-center justify-center font-bold border border-black px-2 py-1 rounded-md w-fit"
+				>
+					<Github className="h-4 w-4 mr-1" /> GitHub
+				</Link>
 			</div>
         </div>
     );
