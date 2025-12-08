@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 // The target URL for the external API.
 const EXTERNAL_API_URL = 'https://bidplus.gem.gov.in/search-bids';

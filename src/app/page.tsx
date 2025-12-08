@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Loader2, Github } from 'lucide-react';
+import MidChipSkeleton from '~/app/_components/midChipSkeleton';
 
 /**
  * Interface definitions matching your route.ts for strict typing
@@ -151,11 +152,15 @@ export default function App() {
 			
 							if (!response.ok) {
 								let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
-								try {
-									const errorData = await response.json() as ApiErrorData;
-									errorMessage = errorData.message ?? errorData.error ?? errorMessage;
-								} catch (e) {
-									// Ignore if response body isn't JSON
+								if (response.status === 504) {
+									errorMessage = 'Error, possibly GeM is down or in maintainence';
+								} else {
+									try {
+										const errorData = await response.json() as ApiErrorData;
+										errorMessage = errorData.message ?? errorData.error ?? errorMessage;
+									} catch (e) {
+										// Ignore if response body isn't JSON
+									}
 								}
 								// Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
 								if (attempt === maxRetries - 1) {
@@ -232,11 +237,15 @@ export default function App() {
 			
 							if (!response.ok) {
 								let errorMessage = `HTTP error! Status: ${response.status} on page ${page}`;
-								try {
-									const errorData = await response.json() as ApiErrorData;
-									errorMessage = errorData.message ?? errorData.error ?? errorMessage;
-								} catch (e) {
-									// Ignore if response body isn't JSON
+								if (response.status === 504) {
+									errorMessage = 'Error, possibly GeM is down or in maintainence';
+								} else {
+									try {
+										const errorData = await response.json() as ApiErrorData;
+										errorMessage = errorData.message ?? errorData.error ?? errorMessage;
+									} catch (e) {
+										// Ignore if response body isn't JSON
+									}
 								}
 								// Treat HTTP errors (4xx, 5xx) as temporary for retry, unless it's the last attempt
 								if (attempt === maxRetries - 1) {
@@ -525,10 +534,12 @@ const BidSkeleton: React.FC = () => {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
 					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200 dark:border-indigo-600"></div>
 					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200 dark:border-indigo-600"></div>
-					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
-					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
-					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
-					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					<MidChipSkeleton />
+					<MidChipSkeleton />
+					<MidChipSkeleton />
+					<MidChipSkeleton />
+					<MidChipSkeleton />
+					<MidChipSkeleton />
 					{/* Bid Number Placeholder */}
 					<div className="h-[30px] text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300 dark:border-indigo-600"></div>
 				</div>
