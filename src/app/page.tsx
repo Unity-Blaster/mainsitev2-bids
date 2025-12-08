@@ -438,7 +438,11 @@ export default function App() {
 							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : bid.b_id[0]}`}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="bg-gray-50 dark:bg-gray-900 p-4 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
+							className={
+							bid.b_id_parent?.length > 0
+								? "bg-red-100 dark:bg-red-800 p-4 shadow-lg border border-red-400 dark:border-red-300 hover:shadow-xl hover:shadow-red-100 dark:hover:shadow-red-900 hover:border-red-500 dark:hover:border-red-400 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
+								: "bg-gray-50 dark:bg-gray-900 p-4 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
+						}
 						>
 							<h2 className="text-lg font-semibold text-gray-800 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 wrap-break-word transition-colors duration-300 pb-2">
 								{bid.b_category_name[0]}
