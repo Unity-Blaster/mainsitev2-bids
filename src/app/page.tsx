@@ -525,7 +525,7 @@ export default function App() {
  */
 const BidSkeleton: React.FC = () => {
 	const elements = [];
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 9; i++) {
 	  	elements.push(
 			<div
 				key={i}
