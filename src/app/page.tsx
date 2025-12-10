@@ -536,16 +536,15 @@ const BidSkeleton: React.FC = () => {
 				
 				{/* Details Grid Placeholder */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					{topLeftChipSkeleton({ isRed: false })}
-					{topRightChipSkeleton({ isRed: false })}
-					{midChipSkeleton({ isRed: false })}
-					{midChipSkeleton({ isRed: false })}
-					{midChipSkeleton({ isRed: false })}
-					{midChipSkeleton({ isRed: false })}
-					{midChipSkeleton({ isRed: false })}
-					{midChipSkeleton({ isRed: false })}
-					{/* Bid Number Placeholder */}
-					<div className="h-[30px] text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 rounded-b-2xl rounded-t-md col-span-1 md:col-span-2 border border-indigo-300 dark:border-indigo-600"></div>
+					{topLeftChipSkeleton()}
+					{topRightChipSkeleton()}
+					{midChipSkeleton()}
+					{midChipSkeleton()}
+					{midChipSkeleton()}
+					{midChipSkeleton()}
+					{midChipSkeleton()}
+					{midChipSkeleton()}
+					{bottomChipSkeleton()}
 				</div>
 			</div>
 		);
