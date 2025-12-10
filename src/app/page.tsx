@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Loader2, Github } from 'lucide-react';
 import { midChipSkeleton, topLeftChipSkeleton, topRightChipSkeleton, bottomChipSkeleton} from '~/app/_components/chipSkeleton';
+import { mainHeader, midChip, topLeftChip, topRightChip, bottomChip } from '~/app/_components/chips';
 
 /**
  * Interface definitions matching your route.ts for strict typing
@@ -444,19 +445,10 @@ export default function App() {
 								: "bg-gray-50 dark:bg-gray-900 p-4 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all duration-300 cursor-pointer flex flex-col justify-between rounded-4xl"
 						}
 						>
-							<h2 className="text-lg font-semibold text-gray-800 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 wrap-break-word transition-colors duration-300 pb-2">
-								{bid.b_category_name[0]}
-							</h2>
+							{mainHeader({child: bid.b_category_name[0]})}	
 							<div className="text-sm text-gray-600 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 gap-2">
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200 dark:border-indigo-700">
-									{`Ministry: `}
-									<span className="text-gray-600 dark:text-gray-400">{bid.ba_official_details_minName[0]}</span>
-								</p>
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200 dark:border-indigo-700">
-									{`Department: `}
-									<span className="text-gray-600 dark:text-gray-400">{bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')}</span>
-								</p>
-								{/* Date formatting updated to DD/MM/YYYY using 'en-GB' */}
+								{topLeftChip({child: `Ministry: `, child2: bid.ba_official_details_minName[0]})}
+								{topRightChip({child: `Department: `, child2: bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')})}
 								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
 									{`Starting Date: `}
 									<span className="text-gray-600 dark:text-gray-400">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span>
