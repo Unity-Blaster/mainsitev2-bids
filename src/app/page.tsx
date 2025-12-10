@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Loader2, Github } from 'lucide-react';
-import { midChipSkeleton, topLeftChipSkeleton } from '~/app/_components/chipSkeleton';
+import { midChipSkeleton, topLeftChipSkeleton, topRightChipSkeleton, bottomChipSkeleton} from '~/app/_components/chipSkeleton';
 
 /**
  * Interface definitions matching your route.ts for strict typing
@@ -536,8 +536,8 @@ const BidSkeleton: React.FC = () => {
 				
 				{/* Details Grid Placeholder */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border border-indigo-200 dark:border-indigo-600"></div>
-					<div className="h-[30px] text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border border-indigo-200 dark:border-indigo-600"></div>
+					{topLeftChipSkeleton({ isRed: false })}
+					{topRightChipSkeleton({ isRed: false })}
 					{midChipSkeleton({ isRed: false })}
 					{midChipSkeleton({ isRed: false })}
 					{midChipSkeleton({ isRed: false })}
