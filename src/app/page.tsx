@@ -459,11 +459,9 @@ export default function App() {
 							</div>
 						</Link>
 					))
-				
 				)}
 
             </div>
-
 
 			{/* Footer */}
 
