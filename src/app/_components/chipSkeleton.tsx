@@ -1,9 +1,3 @@
-const midChipSkeleton = () => {
-	return (
-		<div className="h-[30px] py-1 rounded-md w-full border text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600"></div>	
-	)
-}
-
 const topLeftChipSkeleton = () => {
 	return (
 		<div className="h-[30px] py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md w-full border text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600"></div>
@@ -13,6 +7,12 @@ const topLeftChipSkeleton = () => {
 const topRightChipSkeleton = () => {
 	return (
 		<div className="h-[30px] py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md w-full border text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600"></div>
+	)
+}
+
+const midChipSkeleton = () => {
+	return (
+		<div className="h-[30px] py-1 rounded-md w-full border text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600"></div>	
 	)
 }
 

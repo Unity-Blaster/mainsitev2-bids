@@ -15,23 +15,13 @@ const mainHeader = ({
 	)
 }
 
-const midChip = ({
-	isRed = false,
-	child,
-	child2,
-}: chipProps) => {
-	return (
-		<div className={`h-[30px] py-1 rounded-md w-full border ${isRed ? 'text-red-800 dark:text-red-400 bg-red-50 dark:bg-red-950 border-red-500 dark:border-red-700' : 'text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600'}`}></div>	
-	)
-}
-
 const topLeftChip = ({
 	isRed = false,
 	child,
 	child2,
 }: chipProps) => {
 	return (
-		<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border border-indigo-200 dark:border-indigo-700">
+		<p className={`font-medium px-2 py-1 rounded-t-2xl md:rounded-tl-2xl md:rounded-tr-md rounded-b-md border ${isRed ? 'text-red-800 dark:text-red-400 bg-red-50 dark:bg-red-950 border-red-500 dark:border-red-700' : 'text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-700'}`}>
 			{child}
 			<span className="text-gray-600 dark:text-gray-400">{child2}</span>
 		</p>
@@ -44,7 +34,20 @@ const topRightChip = ({
 	child2,
 }: chipProps) => {
 	return (
-		<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border border-indigo-200 dark:border-indigo-700">
+		<p className={`font-medium px-2 py-1 rounded-t-md md:rounded-tl-md md:rounded-tr-2xl rounded-b-md border ${isRed ? 'text-red-800 dark:text-red-400 bg-red-50 dark:bg-red-950 border-red-500 dark:border-red-700' : 'text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-700'}`}>
+			{child}
+			<span className="text-gray-600 dark:text-gray-400">{child2}</span>
+		</p>
+	)
+}
+
+const midChip = ({
+	isRed = false,
+	child,
+	child2,
+}: chipProps) => {
+	return (
+		<p className={`font-medium px-2 py-1 rounded-md border ${isRed ? 'text-red-800 dark:text-red-400 bg-red-50 dark:bg-red-950 border-red-500 dark:border-red-700' : 'text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600'}`}>
 			{child}
 			<span className="text-gray-600 dark:text-gray-400">{child2}</span>
 		</p>
@@ -57,7 +60,9 @@ const bottomChip = ({
 	child2,
 }: chipProps) => {
 	return (
-		<div className={`h-[30px] py-1 rounded-b-2xl rounded-t-md w-full col-span-1 md:col-span-2 border ${isRed ? 'text-red-800 dark:text-red-400 bg-red-50 dark:bg-red-950 border-red-500 dark:border-red-700' : 'text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-600'}`}></div>
+		<p className={`font-medium px-2 py-1 rounded-b-2xl rounded-t-md border col-span-1 md:col-span-2 flex items-center justify-center ${isRed ? 'text-red-800 dark:text-red-400 bg-red-50 dark:bg-red-950 border-red-500 dark:border-red-700' : 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 border-indigo-300 dark:border-indigo-600'}`}>
+			{child}{child2}
+		</p>
 	)
 }
 

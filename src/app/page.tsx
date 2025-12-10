@@ -434,7 +434,7 @@ export default function App() {
 				) : (
 
 					bids.map((bid) => (
-						<a 
+						<Link 
 							key={bid.id} 
 							href={`https://bidplus.gem.gov.in/showbidDocument/${bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : bid.b_id[0]}`}
 							target="_blank"
@@ -447,37 +447,17 @@ export default function App() {
 						>
 							{mainHeader({child: bid.b_category_name[0]})}	
 							<div className="text-sm text-gray-600 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 gap-2">
-								{topLeftChip({child: `Ministry: `, child2: bid.ba_official_details_minName[0]})}
-								{topRightChip({child: `Department: `, child2: bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')})}
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
-									{`Starting Date: `}
-									<span className="text-gray-600 dark:text-gray-400">{new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')}</span>
-								</p>
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
-									{`Closing Date: `}
-									<span className="text-gray-600 dark:text-gray-400">{new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')}</span>
-								</p>
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
-									{`Created By: `}
-									<span className="text-gray-600 dark:text-gray-400">{bid['b.b_created_by'][0]}</span>
-								</p>
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
-									{`Total Quantity: `}
-									<span className="text-gray-600 dark:text-gray-400">{bid.b_total_quantity[0]}</span>
-								</p>
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
-									{`ID: `}
-									<span className="text-gray-600 dark:text-gray-400">{bid.b_id[0]}</span>
-								</p>
-								<p className="font-medium text-indigo-800 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-md border border-indigo-200 dark:border-indigo-700">
-									{`ID Parent: `}
-									<span className="text-gray-600 dark:text-gray-400">{bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : "N/A"}</span>
-								</p>
-								<p className="font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900 px-2 py-1 rounded-b-2xl rounded-t-md border border-indigo-300 dark:border-indigo-600 col-span-1 md:col-span-2 flex items-center justify-center">
-									{`Bid Number: `}{bid.b_bid_number[0]}
-								</p>
+								{topLeftChip({isRed: bid.b_id_parent?.length > 0, child: `Ministry: `, child2: bid.ba_official_details_minName[0]})}
+								{topRightChip({isRed: bid.b_id_parent?.length > 0, child: `Department: `, child2: bid.ba_official_details_deptName[0]?.replaceAll('Steel Authority of India Limited', 'SAIL')})}
+								{midChip({isRed: bid.b_id_parent?.length > 0, child: `Starting Date: `, child2: new Date(bid.final_start_date_sort[0]!).toLocaleDateString('en-GB')})}
+								{midChip({isRed: bid.b_id_parent?.length > 0, child: `Closing Date: `, child2: new Date(bid.final_end_date_sort[0]!).toLocaleDateString('en-GB')})}
+								{midChip({isRed: bid.b_id_parent?.length > 0, child: `Created By: `, child2: bid['b.b_created_by'][0]})}
+								{midChip({isRed: bid.b_id_parent?.length > 0, child: `Total Quantity: `, child2: bid.b_total_quantity[0]})}
+								{midChip({isRed: bid.b_id_parent?.length > 0, child: `ID: `, child2: bid.b_id[0]})}
+								{midChip({isRed: bid.b_id_parent?.length > 0, child: `Parent ID: `, child2: bid.b_id_parent?.length > 0 ? bid.b_id_parent[0] : "N/A"})}
+								{bottomChip({isRed: bid.b_id_parent?.length > 0, child: `Bid Number: `, child2: bid.b_bid_number[0]})}
 							</div>
-						</a>
+						</Link>
 					))
 				
 				)}
